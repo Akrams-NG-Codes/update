@@ -11,7 +11,7 @@ Use `front end` as the publish directory. No dependency installation or build co
 - Vercel: import the repository. The root `vercel.json` sets the framework to Other, disables the build command, and publishes `front end`.
 - Any web server: copy the contents of `front end` to the public web root.
 
-The root `index.html`, `404.html`, `robots.txt`, and `.nojekyll` files are included for static hosting compatibility.
+The root `index.html` serves the full homepage. The `404.html`, `robots.txt`, `sitemap.xml`, and `.nojekyll` files are included for static hosting and search discovery.
 
 ## Local preview
 
@@ -29,7 +29,10 @@ In Vercel, open the project settings, add `acromind.org` under **Domains**, and 
 
 ## Structure
 
-- `index.html`: deployment entry point, redirecting to the home page
+- `index.html`: canonical homepage at `https://acromind.org/`
+- `programs.html`, `gallery.html`, `blog.html`: standalone, sitemap-listed content pages
 - `home/`: home page, shared CSS, JavaScript, and favicon
 - `other pages/`: secondary pages
 - `patner images/`: supplied partner artwork
+
+The older `home/index.html` URL remains available with its canonical pointing to the homepage. The legacy `other pages/un-pulse.html` address forwards visitors to `/blog.html` and is excluded from indexing and the sitemap.

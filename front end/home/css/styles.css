@@ -32,20 +32,20 @@ nav .button { padding:.7rem .95rem; }
 nav a.active:not(.button)::after { transform:scaleX(1); }
 .button:hover { background:var(--navy); }
 .button.gold { background:var(--gold); color:var(--navy); }
-.hero { background:linear-gradient(90deg,rgba(0,59,91,.95) 0%,rgba(0,59,91,.78) 42%,rgba(0,59,91,.12) 100%),url("../../asset/audience 2.jpg") center/cover; color:#fff; min-height:560px; padding:6.5rem 0 5rem; }
+.hero { background:linear-gradient(90deg,rgba(0,59,91,.95) 0%,rgba(0,59,91,.78) 42%,rgba(0,59,91,.12) 100%),url("../../asset/filtre/IMG_6378.jpg") center/cover; color:#fff; min-height:560px; padding:6.5rem 0 5rem; }
 .page-hero { min-height:420px; }
 .pulse-hero, .debate-hero, .involved-hero, .work-hero, .about-hero, .events-hero, .donate-hero { background-color:#006f98; background-image:linear-gradient(90deg,rgba(0,91,130,.9) 0%,rgba(0,111,152,.68) 52%,rgba(0,111,152,.2) 64%,transparent 72%); background-position:center,right center; background-repeat:no-repeat; background-size:auto,42% auto; color:#fff; }
 .pulse-hero { background-image:linear-gradient(90deg,rgba(0,91,130,.9) 0%,rgba(0,111,152,.68) 52%,rgba(0,111,152,.2) 64%,transparent 72%),url("../../asset/josephine.JPG"); }
 .debate-hero { background-image:linear-gradient(90deg,rgba(0,91,130,.9) 0%,rgba(0,111,152,.68) 52%,rgba(0,111,152,.2) 64%,transparent 72%),url("../../asset/child.jpg"); }
-.involved-hero { background-image:linear-gradient(90deg,rgba(0,91,130,.9) 0%,rgba(0,111,152,.68) 52%,rgba(0,111,152,.2) 64%,transparent 72%),url("../../asset/kidu.jpg"); }
-.work-hero { background-image:linear-gradient(90deg,rgba(0,91,130,.9) 0%,rgba(0,111,152,.68) 52%,rgba(0,111,152,.2) 64%,transparent 72%),url("../../asset/audience 2.jpg"); }
+.involved-hero { background-image:linear-gradient(90deg,rgba(0,91,130,.9) 0%,rgba(0,111,152,.68) 52%,rgba(0,111,152,.2) 64%,transparent 72%),url("../../asset/filtre/IMG_6844.jpg"); }
+.work-hero { background-image:linear-gradient(90deg,rgba(0,91,130,.9) 0%,rgba(0,111,152,.68) 52%,rgba(0,111,152,.2) 64%,transparent 72%),url("../../asset/filtre/IMG_6464.jpg"); }
 .about-hero { background:#f4f7f8; color:var(--ink); isolation:isolate; overflow:hidden; position:relative; }
 .about-hero-video { height:100%; left:0; object-fit:contain; object-position:left center; opacity:.3; position:absolute; top:0; width:68%; z-index:0; }
 .about-hero-image { height:100%; object-fit:cover; object-position:center; position:absolute; right:0; top:0; width:42%; z-index:1; }
 .about-hero > .container { margin-left:max(var(--site-gutter),calc((100% - 1180px) / 2)); margin-right:auto; max-width:52%; position:relative; z-index:2; }
 .hero.about-hero .eyebrow { color:var(--blue); }
 .hero.about-hero p { color:var(--muted); }
-.events-hero { background-image:linear-gradient(90deg,rgba(0,91,130,.9) 0%,rgba(0,111,152,.68) 52%,rgba(0,111,152,.2) 64%,transparent 72%),url("../../asset/audience.jpg"); }
+.events-hero { background-image:linear-gradient(90deg,rgba(0,91,130,.9) 0%,rgba(0,111,152,.68) 52%,rgba(0,111,152,.2) 64%,transparent 72%),url("../../asset/filtre/IMG_6565.jpg"); }
 .donate-hero { background-image:linear-gradient(90deg,rgba(0,91,130,.9) 0%,rgba(0,111,152,.68) 52%,rgba(0,111,152,.2) 64%,transparent 72%),url("../../asset/love.jpg"); }
 .involved-hero { background-size:auto,36% auto; }
 .work-hero { background-size:auto,56% auto; }

@@ -168,6 +168,10 @@ footer p, .footer-links { color:#d7e8ee; font-family:Arial,sans-serif; font-size
 .profile-spotlight-image { aspect-ratio:var(--content-image-ratio); background:#dce8eb; display:block; height:auto; object-fit:contain; width:100%; }
 .profile-spotlight-copy { max-width:620px; }
 .profile-spotlight-copy p:not(.eyebrow) { color:var(--muted); font-size:1.05rem; margin-bottom:1.5rem; }
+.school-story-image { margin:0 auto; max-width:760px; }
+.school-story-image-frame { aspect-ratio:var(--content-image-ratio); background:#dce8eb; overflow:hidden; width:100%; }
+.school-story-image-frame img { display:block; height:100%; object-fit:contain; width:100%; }
+.school-story-image figcaption { color:var(--muted); font-size:.9rem; margin-top:.6rem; text-align:center; }
 @media (max-width:760px) {
 	.profile-spotlight .container { gap:1.5rem; grid-template-columns:1fr; }
 	.nav.menu-enhanced { align-items:stretch; }

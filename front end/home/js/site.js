@@ -1,66 +1,187 @@
+const siteRoot = new URL("../../", document.currentScript.src);
+
 document.addEventListener("DOMContentLoaded", () => {
-  const currentFile = decodeURIComponent(window.location.pathname.split("/").pop()) || "index.html";
-  document.querySelectorAll("nav a[href]").forEach((link) => {
-    const linkFile = decodeURIComponent(link.getAttribute("href").split("#")[0].split("?")[0].split("/").pop());
-    if (linkFile && linkFile === currentFile) {
-      link.classList.add("active");
-      link.setAttribute("aria-current", "page");
-    }
+  const nav = document.querySelector("header nav[aria-label='Main navigation']");
+  const navItems = [
+    ["About us", "other%20pages/about-us.html"],
+    ["Our work", "other%20pages/our-work.html"],
+    ["Programmes", "programs.html"],
+    ["Events and news", "other%20pages/events-news.html"],
+    ["Gallery", "gallery.html"],
+    ["AcroMind pulse", "blog.html"],
+    ["Get involved", "other%20pages/get-involved.html"],
+    ["General debate", "other%20pages/general-debate.html"],
+  ];
+
+  if (nav) {
+    nav.id = "primary-navigation";
+    const list = document.createElement("ul");
+    const currentUrl = new URL(window.location.href);
+    currentUrl.hash = "";
+
+    navItems.forEach(([label, path]) => {
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = new URL(path, siteRoot).href;
+      link.textContent = label;
+      if (link.href === currentUrl.href) {
+        link.classList.add("active");
+        link.setAttribute("aria-current", "page");
+      }
+      item.append(link);
+      list.append(item);
+    });
+
+    const searchItem = document.createElement("li");
+    searchItem.className = "search-item";
+    searchItem.innerHTML = '<button class="search" type="button" aria-label="Search site" title="Search site" data-search-toggle><span class="search-icon" aria-hidden="true"></span></button>';
+    list.append(searchItem);
+
+    const donateItem = document.createElement("li");
+    const donateLink = document.createElement("a");
+    donateLink.className = "button";
+    donateLink.href = new URL("other%20pages/donate.html", siteRoot).href;
+    donateLink.textContent = "Donate";
+    donateItem.append(donateLink);
+    list.append(donateItem);
+    nav.replaceChildren(list);
+
+    const navContainer = nav.parentElement;
+    const menuButton = document.createElement("button");
+    menuButton.className = "menu-toggle";
+    menuButton.type = "button";
+    menuButton.setAttribute("aria-controls", nav.id);
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.innerHTML = '<span class="menu-icon" aria-hidden="true"></span><span>Menu</span>';
+    navContainer.insertBefore(menuButton, nav);
+    navContainer.classList.add("menu-enhanced");
+
+    const closeMenu = () => {
+      navContainer.classList.remove("menu-open");
+      menuButton.setAttribute("aria-expanded", "false");
+    };
+    menuButton.addEventListener("click", () => {
+      const isOpen = navContainer.classList.toggle("menu-open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
+    nav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) closeMenu();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+  }
+
+  document.querySelectorAll(".logo").forEach((logo) => {
+    logo.href = new URL("index.html", siteRoot).href;
   });
 
-  const searchLink = document.querySelector("[data-search-toggle]");
-  if (!searchLink) return;
+  const searchButton = document.querySelector("[data-search-toggle]");
+  if (!searchButton) return;
 
-  const searchableItems = [...document.querySelectorAll("main h1, main h2, main h3, main p, main figcaption")];
+  const searchablePages = [
+    ["index.html", "Home"],
+    ["programs.html", "Programmes"],
+    ["gallery.html", "Gallery"],
+    ["blog.html", "AcroMind pulse"],
+    ["other%20pages/about-us.html", "About us"],
+    ["other%20pages/donate.html", "Donate"],
+    ["other%20pages/events-news.html", "Events and news"],
+    ["other%20pages/general-debate.html", "General debate"],
+    ["other%20pages/get-involved.html", "Get involved"],
+    ["other%20pages/our-work.html", "Our work"],
+  ];
+  const textSelectors = "main h1, main h2, main h3, main p, main figcaption";
+  const currentUrl = new URL(window.location.href);
+  currentUrl.hash = "";
+  let searchIndexPromise;
+  let searchIncomplete = false;
+  let searchRequestId = 0;
+
+  const getPageEntries = (documentToRead, pageUrl, title) => [...documentToRead.querySelectorAll(textSelectors)]
+    .map((item) => item.textContent.trim())
+    .filter(Boolean)
+    .map((text) => ({ text, title, url: pageUrl }));
+
+  const loadSearchIndex = () => {
+    if (searchIndexPromise) return searchIndexPromise;
+    const currentEntries = getPageEntries(document, currentUrl, document.title);
+    const otherPages = searchablePages
+      .map(([path, title]) => ({ url: new URL(path, siteRoot), title }))
+      .filter((page) => page.url.href !== currentUrl.href);
+
+    searchIndexPromise = Promise.allSettled(otherPages.map(async (page) => {
+      const response = await fetch(page.url);
+      if (!response.ok) throw new Error(`Could not load ${page.url.pathname}`);
+      const pageDocument = new DOMParser().parseFromString(await response.text(), "text/html");
+      return getPageEntries(pageDocument, page.url, pageDocument.title || page.title);
+    })).then((results) => {
+      searchIncomplete = results.some((result) => result.status === "rejected");
+      return [
+        ...currentEntries,
+        ...results.filter((result) => result.status === "fulfilled").flatMap((result) => result.value),
+      ];
+    });
+    return searchIndexPromise;
+  };
+
   const panel = document.createElement("div");
   panel.className = "search-panel";
   panel.id = "site-search-panel";
   panel.hidden = true;
-  panel.innerHTML = `<div class="search-backdrop" data-search-close></div><div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title"><button class="search-close" type="button" aria-label="Close search" data-search-close>&times;</button><p class="eyebrow">Search this page</p><h2 id="search-title">Find a story, programme, or idea.</h2><label class="sr-only" for="site-search">Search this page</label><input id="site-search" type="search" placeholder="Start typing..." autocomplete="off"><div class="search-results" aria-live="polite"></div></div>`;
+  panel.innerHTML = '<div class="search-backdrop" data-search-close></div><div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title"><button class="search-close" type="button" aria-label="Close search" data-search-close>&times;</button><p class="eyebrow">Search the site</p><h2 id="search-title">Find a story, programme, or idea.</h2><label class="sr-only" for="site-search">Search site content</label><input id="site-search" type="search" placeholder="Start typing..." autocomplete="off"><div class="search-results" aria-live="polite">Type to search site content.</div></div>';
   document.body.append(panel);
-  searchLink.setAttribute("aria-haspopup", "dialog");
-  searchLink.setAttribute("aria-controls", panel.id);
-  searchLink.setAttribute("aria-expanded", "false");
+  searchButton.setAttribute("aria-haspopup", "dialog");
+  searchButton.setAttribute("aria-controls", panel.id);
+  searchButton.setAttribute("aria-expanded", "false");
 
   const input = panel.querySelector("input");
   const results = panel.querySelector(".search-results");
-  const close = () => {
+  const close = (restoreFocus = true) => {
     panel.hidden = true;
-    searchLink.setAttribute("aria-expanded", "false");
-    searchLink.focus();
+    searchButton.setAttribute("aria-expanded", "false");
+    if (restoreFocus) searchButton.focus();
   };
-  const renderResults = () => {
-    const term = input.value.trim().toLowerCase();
-    if (!term) {
-      results.innerHTML = "<p>Search the content on this page.</p>";
+
+  const renderResults = async () => {
+    const requestId = ++searchRequestId;
+    const terms = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    results.replaceChildren();
+    if (!terms.length) {
+      results.textContent = "Type to search site content.";
       return;
     }
-    const matches = searchableItems.filter((item) => item.textContent.toLowerCase().includes(term)).slice(0, 8);
+
+    results.textContent = "Searching...";
+    const index = await loadSearchIndex();
+    if (requestId !== searchRequestId || panel.hidden) return;
+    const matches = index.filter((entry) => terms.every((term) => entry.text.toLowerCase().includes(term))).slice(0, 12);
     results.replaceChildren();
     if (!matches.length) {
-      const message = document.createElement("p");
-      message.textContent = "No matching content found.";
-      results.append(message);
+      results.textContent = searchIncomplete ? "No matching content found. Some pages could not be searched." : "No matching content found.";
       return;
     }
-    matches.forEach((item) => {
-      const result = document.createElement("button");
-      result.type = "button";
-      result.textContent = item.textContent.trim();
-      result.addEventListener("click", () => {
-        item.scrollIntoView({ behavior: "smooth", block: "center" });
-        close();
-      });
+
+    matches.forEach((match) => {
+      const result = document.createElement("a");
+      const target = new URL(match.url);
+      target.hash = "top";
+      result.href = target.href;
+      result.textContent = `${match.title}: ${match.text}`;
       results.append(result);
     });
   };
 
-  searchLink.addEventListener("click", (event) => {
-    event.preventDefault();
+  searchButton.addEventListener("click", () => {
+    const navContainer = searchButton.closest(".nav.menu-enhanced");
+    if (navContainer) {
+      navContainer.classList.remove("menu-open");
+      navContainer.querySelector(".menu-toggle").setAttribute("aria-expanded", "false");
+    }
     panel.hidden = false;
-    searchLink.setAttribute("aria-expanded", "true");
+    searchButton.setAttribute("aria-expanded", "true");
     input.value = "";
-    renderResults();
+    results.textContent = "Type to search site content.";
     input.focus();
   });
   panel.addEventListener("click", (event) => {
@@ -68,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   panel.addEventListener("keydown", (event) => {
     if (event.key !== "Tab") return;
-    const focusable = [...panel.querySelectorAll("button:not([disabled]), input:not([disabled])")];
+    const focusable = [...panel.querySelectorAll("button:not([disabled]), input:not([disabled]), a[href]")];
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
     if (event.shiftKey && document.activeElement === first) {

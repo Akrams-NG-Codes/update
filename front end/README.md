@@ -23,6 +23,14 @@ npx serve "front end"
 
 Opening `front end/index.html` directly also works, but a local server better matches production URL behavior.
 
+## Site checks
+
+From the repository root, run the PowerShell check for local links and assets, consistent navigation, and gallery figure structure:
+
+```powershell
+.\scripts\check-site.ps1
+```
+
 ## Custom domain
 
 In Vercel, open the project settings, add `acromind.org` under **Domains**, and apply the DNS records Vercel displays at your domain registrar. Wait for Vercel to verify the domain and issue its TLS certificate. The site includes canonical URLs and a sitemap for `https://acromind.org`.

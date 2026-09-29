@@ -163,7 +163,13 @@ footer p, .footer-links { color:#d7e8ee; font-family:Arial,sans-serif; font-size
 .donation-note { background:var(--pale); border-left:4px solid var(--gold); color:var(--ink); margin:0 0 2rem; padding:1rem 1.2rem; }
 .gallery-contact { color:var(--muted); font-size:.9rem; margin-top:1.2rem; }
 .gallery-contact a { color:var(--blue); font-weight:700; text-decoration:underline; text-underline-offset:.15em; }
+.profile-spotlight { background:var(--pale); }
+.profile-spotlight .container { align-items:center; display:grid; gap:3rem; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); }
+.profile-spotlight-image { aspect-ratio:var(--content-image-ratio); background:#dce8eb; display:block; height:auto; object-fit:contain; width:100%; }
+.profile-spotlight-copy { max-width:620px; }
+.profile-spotlight-copy p:not(.eyebrow) { color:var(--muted); font-size:1.05rem; margin-bottom:1.5rem; }
 @media (max-width:760px) {
+	.profile-spotlight .container { gap:1.5rem; grid-template-columns:1fr; }
 	.nav.menu-enhanced { align-items:stretch; }
 	.nav.menu-enhanced .menu-toggle { display:flex; }
 	.nav.menu-enhanced nav { display:none; }

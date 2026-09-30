@@ -34,11 +34,16 @@ foreach ($file in $markupFiles) {
 
     $localPath = [uri]::UnescapeDataString(($target -split '[?#]', 2)[0])
     if ([string]::IsNullOrWhiteSpace($localPath)) { continue }
-    if ($localPath -eq '/') { $localPath = 'index.html' }
-    if ($localPath.StartsWith('/')) {
+    if ($localPath -eq '/') {
+      $candidate = Join-Path $siteRoot 'index.html'
+    } elseif ($localPath.StartsWith('/')) {
       $candidate = Join-Path $siteRoot $localPath.TrimStart('/')
     } else {
       $candidate = Join-Path $file.DirectoryName $localPath
+    }
+
+    if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) {
+      $candidate = "$candidate.html"
     }
 
     if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) {

@@ -3,14 +3,14 @@ const siteRoot = new URL("../../", document.currentScript.src);
 document.addEventListener("DOMContentLoaded", () => {
   const nav = document.querySelector("header nav[aria-label='Main navigation']");
   const navItems = [
-    ["About us", "other%20pages/about-us.html"],
-    ["Our work", "other%20pages/our-work.html"],
-    ["Programmes", "programs.html"],
-    ["Events and news", "other%20pages/events-news.html"],
-    ["Gallery", "gallery.html"],
-    ["AcroMind pulse", "blog.html"],
-    ["Get involved", "other%20pages/get-involved.html"],
-    ["General debate", "other%20pages/general-debate.html"],
+    ["About us", "other%20pages/about-us"],
+    ["Our work", "other%20pages/our-work"],
+    ["Programmes", "programs"],
+    ["Events and news", "other%20pages/events-news"],
+    ["Gallery", "gallery"],
+    ["AcroMind pulse", "blog"],
+    ["Get involved", "other%20pages/get-involved"],
+    ["General debate", "other%20pages/general-debate"],
   ];
 
   if (nav) {
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const donateItem = document.createElement("li");
     const donateLink = document.createElement("a");
     donateLink.className = "button";
-    donateLink.href = new URL("other%20pages/donate.html", siteRoot).href;
+    donateLink.href = new URL("other%20pages/donate", siteRoot).href;
     donateLink.textContent = "Donate";
     donateItem.append(donateLink);
     list.append(donateItem);
@@ -73,23 +73,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.querySelectorAll(".logo").forEach((logo) => {
-    logo.href = new URL("index.html", siteRoot).href;
+    logo.href = new URL("/", siteRoot).href;
   });
 
   const searchButton = document.querySelector("[data-search-toggle]");
   if (!searchButton) return;
 
   const searchablePages = [
-    ["index.html", "Home"],
-    ["programs.html", "Programmes"],
-    ["gallery.html", "Gallery"],
-    ["blog.html", "AcroMind pulse"],
-    ["other%20pages/about-us.html", "About us"],
-    ["other%20pages/donate.html", "Donate"],
-    ["other%20pages/events-news.html", "Events and news"],
-    ["other%20pages/general-debate.html", "General debate"],
-    ["other%20pages/get-involved.html", "Get involved"],
-    ["other%20pages/our-work.html", "Our work"],
+    ["/", "Home"],
+    ["programs", "Programmes"],
+    ["gallery", "Gallery"],
+    ["blog", "AcroMind pulse"],
+    ["other%20pages/about-us", "About us"],
+    ["other%20pages/donate", "Donate"],
+    ["other%20pages/events-news", "Events and news"],
+    ["other%20pages/general-debate", "General debate"],
+    ["other%20pages/get-involved", "Get involved"],
+    ["other%20pages/our-work", "Our work"],
   ];
   const textSelectors = "main h1, main h2, main h3, main p, main figcaption";
   const currentUrl = new URL(window.location.href);

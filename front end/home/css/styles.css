@@ -183,6 +183,14 @@ footer p, .footer-links { color:#d7e8ee; font-family:Arial,sans-serif; font-size
 .contact-list { list-style:none; display:grid; gap:.9rem; }
 .contact-list li { color:var(--muted); }
 .contact-list strong { color:var(--navy); display:block; font-size:.7rem; letter-spacing:.07em; text-transform:uppercase; }
+.faq-list { border-top:1px solid var(--line); max-width:860px; }
+.faq-item { border-bottom:1px solid var(--line); }
+.faq-item summary { color:var(--navy); cursor:pointer; font-size:1.05rem; font-weight:700; padding:1.1rem 2.5rem 1.1rem 0; position:relative; }
+.faq-item summary::after { color:var(--blue); content:"+"; font-size:1.5rem; font-weight:400; position:absolute; right:.25rem; top:.7rem; }
+.faq-item[open] summary::after { content:"-"; }
+.faq-item summary:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
+.faq-item p { color:var(--muted); max-width:720px; padding:0 2.5rem 1.1rem 0; }
+.faq-item a { color:var(--blue); font-weight:700; text-decoration:underline; text-underline-offset:.15em; }
 .policy-page, .content-page { display:grid; gap:2rem; }
 .policy-page h2, .content-page h2 { margin-top:1.5rem; }
 .policy-content { color:var(--muted); font-size:1.02rem; }

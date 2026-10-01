@@ -77,6 +77,22 @@ document.addEventListener("DOMContentLoaded", () => {
     logo.href = new URL("/", siteRoot).href;
   });
 
+  const trackEvent = (eventName, details = {}) => {
+    try {
+      const key = "acromind-analytics";
+      const existing = JSON.parse(localStorage.getItem(key) || "[]");
+      const payload = { eventName, page: window.location.pathname, timestamp: new Date().toISOString(), ...details };
+      existing.push(payload);
+      localStorage.setItem(key, JSON.stringify(existing.slice(-50)));
+    } catch (error) {
+      // Ignore storage errors in restricted browsers.
+    }
+  };
+
+  document.querySelectorAll("[data-track]").forEach((element) => {
+    element.addEventListener("click", () => trackEvent(element.dataset.track, { label: element.textContent.trim() }));
+  });
+
   document.querySelectorAll("[data-mailto-form]").forEach((form) => {
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -95,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
         message || "No extra message provided.",
       ].filter(Boolean).join("\n");
       const mailtoLink = `mailto:olangoacrobat@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(details)}`;
+      trackEvent("form_submit", { form: form.dataset.subject || "enquiry", interest });
       window.location.href = mailtoLink;
 
       const success = form.querySelector("[data-form-success]");

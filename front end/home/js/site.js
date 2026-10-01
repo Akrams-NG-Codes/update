@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ["AcroMind pulse", "blog"],
     ["Get involved", "other%20pages/get-involved"],
     ["General debate", "other%20pages/general-debate"],
+    ["Contact", "other%20pages/contact"],
   ];
 
   if (nav) {
@@ -76,6 +77,34 @@ document.addEventListener("DOMContentLoaded", () => {
     logo.href = new URL("/", siteRoot).href;
   });
 
+  document.querySelectorAll("[data-mailto-form]").forEach((form) => {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const name = (formData.get("name") || "").toString().trim() || "Supporter";
+      const email = (formData.get("email") || "").toString().trim();
+      const interest = (formData.get("interest") || "").toString().trim();
+      const message = (formData.get("message") || "").toString().trim();
+      const subjectBase = form.dataset.subject || "Acromind Initiative enquiry";
+      const subject = `${subjectBase}: ${interest || name}`;
+      const details = [
+        `Name: ${name}`,
+        email ? `Email: ${email}` : "Email: not provided",
+        interest ? `Interest: ${interest}` : "",
+        "",
+        message || "No extra message provided.",
+      ].filter(Boolean).join("\n");
+      const mailtoLink = `mailto:olangoacrobat@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(details)}`;
+      window.location.href = mailtoLink;
+
+      const success = form.querySelector("[data-form-success]");
+      if (success) {
+        success.hidden = false;
+        success.textContent = "Your email app should open with your message. If it does not, email us directly at olangoacrobat@gmail.com.";
+      }
+    });
+  });
+
   const searchButton = document.querySelector("[data-search-toggle]");
   if (!searchButton) return;
 
@@ -85,11 +114,15 @@ document.addEventListener("DOMContentLoaded", () => {
     ["gallery", "Gallery"],
     ["blog", "AcroMind pulse"],
     ["other%20pages/about-us", "About us"],
+    ["other%20pages/contact", "Contact"],
     ["other%20pages/donate", "Donate"],
     ["other%20pages/events-news", "Events and news"],
     ["other%20pages/general-debate", "General debate"],
     ["other%20pages/get-involved", "Get involved"],
+    ["other%20pages/impact-report", "Impact report"],
     ["other%20pages/our-work", "Our work"],
+    ["other%20pages/privacy-policy", "Privacy policy"],
+    ["other%20pages/safeguarding-policy", "Safeguarding policy"],
   ];
   const textSelectors = "main h1, main h2, main h3, main p, main figcaption";
   const currentUrl = new URL(window.location.href);

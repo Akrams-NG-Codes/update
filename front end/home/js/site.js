@@ -112,13 +112,12 @@ document.addEventListener("DOMContentLoaded", () => {
       ].filter(Boolean).join("\n");
       const mailtoLink = `mailto:olangoacrobat@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(details)}`;
       trackEvent("form_submit", { form: form.dataset.subject || "enquiry", interest });
-      window.location.href = mailtoLink;
-
       const success = form.querySelector("[data-form-success]");
       if (success) {
         success.hidden = false;
-        success.textContent = "Your email app should open with your message. If it does not, email us directly at olangoacrobat@gmail.com.";
+        success.textContent = "Your email app should open with a draft. Review and send it there; nothing is sent automatically. If it does not open, email us directly at olangoacrobat@gmail.com.";
       }
+      window.location.href = mailtoLink;
     });
   });
 
@@ -136,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ["other%20pages/events-news", "Events and news"],
     ["other%20pages/general-debate", "General debate"],
     ["other%20pages/get-involved", "Get involved"],
-    ["other%20pages/impact-report", "Impact report"],
+    ["other%20pages/impact-report", "Our impact approach"],
     ["other%20pages/our-work", "Our work"],
     ["other%20pages/privacy-policy", "Privacy policy"],
     ["other%20pages/safeguarding-policy", "Safeguarding policy"],

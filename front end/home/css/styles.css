@@ -147,7 +147,7 @@ h2 { color:var(--navy); font-size:clamp(2rem,4vw,3rem); font-weight:400; line-he
 footer { background:var(--navy); border-top:5px solid var(--blue); color:#fff; padding:3.2rem 0 1.5rem; }
 .footer-content { align-items:flex-start; display:flex; justify-content:space-between; gap:2rem; }
 footer p, .footer-links { color:#d7e8ee; font-family:Arial,sans-serif; font-size:.78rem; }
-.footer-links { display:flex; gap:1.4rem; }
+.footer-links { display:flex; flex-wrap:wrap; gap:.5rem 1.1rem; justify-content:flex-end; }
 .search-panel[hidden] { display:none; }
 .search-panel { inset:0; position:fixed; z-index:30; }
 .search-backdrop { background:rgba(0,34,52,.64); inset:0; position:absolute; }
@@ -177,6 +177,8 @@ footer p, .footer-links { color:#d7e8ee; font-family:Arial,sans-serif; font-size
 .form-field textarea { min-height:150px; resize:vertical; }
 .form-actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1rem; }
 .form-success { background:#e8f7ed; border:1px solid #b9e2c7; color:#1a5a36; margin-top:1rem; padding:.8rem 1rem; }
+.form-note { color:var(--muted); font-size:.9rem; margin-top:1rem; }
+.form-note a { color:var(--blue); font-weight:700; text-decoration:underline; text-underline-offset:.15em; }
 .contact-grid { display:grid; gap:2rem; grid-template-columns:1.1fr .9fr; }
 .contact-card, .info-card { background:var(--pale); border:1px solid var(--line); padding:1.5rem; }
 .contact-card h3, .info-card h3 { color:var(--navy); font-size:1.4rem; margin-bottom:.7rem; }

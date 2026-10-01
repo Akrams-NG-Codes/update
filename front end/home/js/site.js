@@ -1,6 +1,86 @@
 const siteRoot = new URL("../../", document.currentScript.src);
 
 document.addEventListener("DOMContentLoaded", () => {
+  const footer = document.querySelector("footer");
+  if (footer) {
+    const footerGroups = [
+      {
+        title: "Explore",
+        links: [
+          ["Home", ""],
+          ["About us", "other%20pages/about-us"],
+          ["Our work", "other%20pages/our-work"],
+          ["Programmes", "programs"],
+          ["Events and news", "other%20pages/events-news"],
+          ["Gallery", "gallery"],
+          ["AcroMind pulse", "blog"],
+          ["Impact approach", "other%20pages/impact-report"],
+        ],
+      },
+      {
+        title: "Take part",
+        links: [
+          ["Get involved", "other%20pages/get-involved"],
+          ["Donate", "other%20pages/donate"],
+          ["General debate", "other%20pages/general-debate"],
+          ["Contact us", "other%20pages/contact"],
+          ["Frequently asked questions", "other%20pages/contact#faq"],
+        ],
+      },
+      {
+        title: "Information and support",
+        links: [
+          ["Safeguarding policy", "other%20pages/safeguarding-policy"],
+          ["Privacy policy", "other%20pages/privacy-policy"],
+          ["Terms and conditions", "other%20pages/terms"],
+          ["Accessibility", "other%20pages/accessibility"],
+          ["Email Acromind", "mailto:olangoacrobat@gmail.com"],
+        ],
+      },
+    ];
+    const content = document.createElement("div");
+    content.className = "container footer-content";
+
+    const brand = document.createElement("div");
+    brand.className = "footer-brand";
+    const brandName = document.createElement("p");
+    brandName.className = "footer-brand-name";
+    brandName.textContent = "Acromind Initiative";
+    const brandDescription = document.createElement("p");
+    brandDescription.textContent = "Creating safe spaces in Uganda where children and young people grow through circus arts and creative expression.";
+    brand.append(brandName, brandDescription);
+
+    const navigation = document.createElement("nav");
+    navigation.className = "footer-navigation";
+    navigation.setAttribute("aria-label", "Footer navigation");
+    footerGroups.forEach(({ title, links }) => {
+      const group = document.createElement("section");
+      group.className = "footer-group";
+      const heading = document.createElement("h2");
+      heading.textContent = title;
+      const list = document.createElement("ul");
+      links.forEach(([label, path]) => {
+        const item = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = path.startsWith("mailto:") ? path : new URL(path, siteRoot).href;
+        link.textContent = label;
+        item.append(link);
+        list.append(item);
+      });
+      group.append(heading, list);
+      navigation.append(group);
+    });
+
+    const bottom = document.createElement("div");
+    bottom.className = "footer-bottom";
+    const copyright = document.createElement("p");
+    copyright.textContent = `© ${new Date().getFullYear()} Acromind Initiative. Empowering children and youth through circus arts.`;
+    bottom.append(copyright);
+    content.append(brand, navigation, bottom);
+    footer.classList.add("site-footer");
+    footer.replaceChildren(content);
+  }
+
   const nav = document.querySelector("header nav[aria-label='Main navigation']");
   const navItems = [
     ["About us", "other%20pages/about-us"],

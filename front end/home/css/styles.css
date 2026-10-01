@@ -145,9 +145,16 @@ h2 { color:var(--navy); font-size:clamp(2rem,4vw,3rem); font-weight:400; line-he
 .cta { background:var(--pale); border-top:1px solid var(--line); text-align:center; }
 .cta p { color:var(--muted); margin:0 auto 1.6rem; max-width:580px; }
 footer { background:var(--navy); border-top:5px solid var(--blue); color:#fff; padding:3.2rem 0 1.5rem; }
-.footer-content { align-items:flex-start; display:flex; justify-content:space-between; gap:2rem; }
-footer p, .footer-links { color:#d7e8ee; font-family:Arial,sans-serif; font-size:.78rem; }
-.footer-links { display:flex; flex-wrap:wrap; gap:.5rem 1.1rem; justify-content:flex-end; }
+.footer-content { display:grid; gap:2.5rem; grid-template-columns:minmax(220px,.8fr) 2fr; }
+footer p, .footer-group a { color:#d7e8ee; font-family:Arial,sans-serif; font-size:.84rem; }
+.footer-brand { max-width:300px; }
+.footer-brand-name { color:#fff; font-size:1.15rem; font-weight:700; margin-bottom:.65rem; }
+.footer-navigation { display:grid; gap:1.5rem; grid-template-columns:repeat(3,minmax(0,1fr)); }
+.footer-group h2 { color:#fff; font-size:.78rem; font-weight:700; letter-spacing:.08em; margin:0 0 .9rem; text-transform:uppercase; }
+.footer-group ul { display:grid; gap:.55rem; list-style:none; padding:0; }
+.footer-group a:hover { color:#fff; text-decoration:underline; text-underline-offset:.2em; }
+.footer-bottom { border-top:1px solid rgba(255,255,255,.22); grid-column:1 / -1; padding-top:1rem; }
+.footer-bottom p { color:#d7e8ee; font-size:.76rem; }
 .search-panel[hidden] { display:none; }
 .search-panel { inset:0; position:fixed; z-index:30; }
 .search-backdrop { background:rgba(0,34,52,.64); inset:0; position:absolute; }
@@ -241,4 +248,11 @@ footer p, .footer-links { color:#d7e8ee; font-family:Arial,sans-serif; font-size
 	.nav.menu-enhanced nav ul .search-item { display:block; }
 	.nav.menu-enhanced nav .search { margin:.4rem 0; }
 	.search-dialog { padding:2rem 1.25rem; top:1rem; }
+}
+@media (max-width:760px) {
+	.footer-content { grid-template-columns:1fr; }
+	.footer-navigation { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:420px) {
+	.footer-navigation { grid-template-columns:1fr; }
 }

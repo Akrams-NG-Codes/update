@@ -44,7 +44,7 @@ nav a.active:not(.button)::after { transform:scaleX(1); }
 .trust-logos { display:grid; gap:1rem; grid-template-columns:repeat(4, minmax(0, 1fr)); margin-top:2rem; }
 .trust-logo { align-items:center; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); color:#dfeef3; display:flex; font-family:Arial,sans-serif; font-size:.72rem; font-weight:700; justify-content:center; letter-spacing:.08em; min-height:86px; padding:1rem; text-transform:uppercase; }
 .hero { background:linear-gradient(90deg,rgba(0,59,91,.95) 0%,rgba(0,59,91,.78) 42%,rgba(0,59,91,.12) 100%),url("../../asset/optimized/IMG_6378.jpg") center/cover; color:#fff; min-height:560px; padding:6.5rem 0 5rem; }
-.hero.home-hero { background-image:linear-gradient(90deg,rgba(0,59,91,.95) 0%,rgba(0,59,91,.78) 42%,rgba(0,59,91,.12) 100%),url("../../asset/optimized/bwaise/bwaise-ambassador-local-leader.jpg"); }
+.hero.home-hero { background-color:#0a1e2a; background-image:url("../../asset/optimized/bwaise/bwaise-ambassador-local-leader.jpg"); background-position:center; background-size:cover; }
 .page-hero { min-height:420px; }
 .pulse-hero, .debate-hero, .involved-hero, .work-hero, .about-hero, .events-hero, .donate-hero { background-color:#006f98; background-image:linear-gradient(90deg,rgba(0,91,130,.9) 0%,rgba(0,111,152,.68) 52%,rgba(0,111,152,.2) 64%,transparent 72%); background-position:center,right center; background-repeat:no-repeat; background-size:auto,42% auto; color:#fff; }
 .pulse-hero { background-image:linear-gradient(90deg,rgba(0,91,130,.9) 0%,rgba(0,111,152,.68) 52%,rgba(0,111,152,.2) 64%,transparent 72%),url("../../asset/josephine.JPG"); }
@@ -69,6 +69,9 @@ nav a.active:not(.button)::after { transform:scaleX(1); }
 .hero-left { align-items:center; display:flex; inset:0 auto 0 0; justify-content:center; max-width:none; opacity:.28; pointer-events:none; position:absolute; width:100%; }
 .hero-logo-graphic { animation:logoWave 2.4s ease-in-out infinite; background:transparent; display:block; height:auto; max-width:860px; object-fit:contain; opacity:.9; position:relative; transform-origin:center; width:100%; z-index:0; }
 .hero-copy { max-width:620px; position:relative; z-index:2; }
+.hero.home-hero .hero-copy { background:rgba(7,23,30,.18); border-radius:1rem; box-shadow:0 0 0 1px rgba(255,255,255,.08); padding:1.25rem 1.35rem; }
+.hero.home-hero .eyebrow { color:#d9f3ff; text-shadow:0 2px 12px rgba(0,0,0,.25); }
+.hero.home-hero h1, .hero.home-hero p { color:#fff; text-shadow:0 2px 12px rgba(0,0,0,.35); }
 @keyframes logoWave { 0%,100% { transform:rotate(-10deg) translateY(0); } 50% { transform:rotate(10deg) translateY(-12px); } }
 .eyebrow { color:var(--blue); font-family:Arial,sans-serif; font-size:.72rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
 .hero .eyebrow { color:#8ed7ff; }

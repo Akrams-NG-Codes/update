@@ -1,5 +1,19 @@
 const siteRoot = new URL("../../", document.currentScript.src);
 
+const normalizeLocalLink = (value) => {
+  if (!value || value.startsWith("mailto:") || value.startsWith("http://") || value.startsWith("https://") || value.startsWith("//") || value.startsWith("#")) {
+    return value;
+  }
+
+  const [pathPart, hashPart] = value.split("#", 2);
+  if (!pathPart || pathPart === "/") {
+    return hashPart ? "/#" + hashPart : "/";
+  }
+
+  const normalizedPath = pathPart.endsWith(".html") ? pathPart : `${pathPart}.html`;
+  return hashPart ? `${normalizedPath}#${hashPart}` : normalizedPath;
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   const footer = document.querySelector("footer");
   if (footer) {
@@ -18,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ],
       },
       {
-        title: "Take part",
+        title: "Ways to take part",
         links: [
           ["Get involved", "other%20pages/get-involved"],
           ["Donate", "other%20pages/donate"],
@@ -28,13 +42,20 @@ document.addEventListener("DOMContentLoaded", () => {
         ],
       },
       {
-        title: "Information and support",
+        title: "Stay connected",
+        links: [
+          ["Latest stories", "blog"],
+          ["Email updates", "#updates"],
+          ["olangoacrobat@gmail.com", "mailto:olangoacrobat@gmail.com"],
+        ],
+      },
+      {
+        title: "Policies and access",
         links: [
           ["Safeguarding policy", "other%20pages/safeguarding-policy"],
           ["Privacy policy", "other%20pages/privacy-policy"],
           ["Terms and conditions", "other%20pages/terms"],
           ["Accessibility", "other%20pages/accessibility"],
-          ["Email Acromind", "mailto:olangoacrobat@gmail.com"],
         ],
       },
     ];
@@ -43,12 +64,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const brand = document.createElement("div");
     brand.className = "footer-brand";
+    const brandLogo = document.createElement("img");
+    brandLogo.className = "footer-logo";
+    brandLogo.src = new URL("logo/logo.png", siteRoot).href;
+    brandLogo.alt = "";
+    brandLogo.width = 56;
+    brandLogo.height = 56;
     const brandName = document.createElement("p");
     brandName.className = "footer-brand-name";
     brandName.textContent = "Acromind Initiative";
     const brandDescription = document.createElement("p");
-    brandDescription.textContent = "Creating safe spaces in Uganda where children and young people grow through circus arts and creative expression.";
-    brand.append(brandName, brandDescription);
+    brandDescription.textContent = "Creating safe spaces in Uganda and partner communities where children and young people grow through circus arts and creative expression.";
+    const replyTime = document.createElement("p");
+    replyTime.className = "footer-response-time";
+    replyTime.textContent = "We aim to reply to enquiries within a few working days.";
+    brand.append(brandLogo, brandName, brandDescription, replyTime);
 
     const navigation = document.createElement("nav");
     navigation.className = "footer-navigation";
@@ -62,7 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
       links.forEach(([label, path]) => {
         const item = document.createElement("li");
         const link = document.createElement("a");
-        link.href = path.startsWith("mailto:") ? path : new URL(path, siteRoot).href;
+        const normalizedPath = normalizeLocalLink(path);
+        link.href = path.startsWith("mailto:") ? path : new URL(normalizedPath, siteRoot).href;
         link.textContent = label;
         item.append(link);
         list.append(item);
@@ -75,7 +106,10 @@ document.addEventListener("DOMContentLoaded", () => {
     bottom.className = "footer-bottom";
     const copyright = document.createElement("p");
     copyright.textContent = `© ${new Date().getFullYear()} Acromind Initiative. Empowering children and youth through circus arts.`;
-    bottom.append(copyright);
+    const backToTop = document.createElement("a");
+    backToTop.href = new URL("#top", siteRoot).href;
+    backToTop.textContent = "Back to top";
+    bottom.append(copyright, backToTop);
     content.append(brand, navigation, bottom);
     footer.classList.add("site-footer");
     footer.replaceChildren(content);
@@ -103,7 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
     navItems.forEach(([label, path]) => {
       const item = document.createElement("li");
       const link = document.createElement("a");
-      link.href = new URL(path, siteRoot).href;
+      const normalizedPath = normalizeLocalLink(path);
+      link.href = new URL(normalizedPath, siteRoot).href;
       link.textContent = label;
       if (link.href === currentUrl.href) {
         link.classList.add("active");

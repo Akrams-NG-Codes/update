@@ -236,6 +236,7 @@ footer p, .footer-group a { color:#d7e8ee; font-family:Arial,sans-serif; font-si
 .search-results a:hover { background:#dceef3; }
 .search-dialog { max-height:calc(100vh - 2rem); overflow-y:auto; }
 .donation-note { background:var(--pale); border-left:4px solid var(--gold); color:var(--ink); margin:0 0 2rem; padding:1rem 1.2rem; }
+.donation-note iframe { border:0; display:block; margin-top:1rem; max-width:100%; }
 .gallery-contact { color:var(--muted); font-size:.9rem; margin-top:1.2rem; }
 .gallery-contact a { color:var(--blue); font-weight:700; text-decoration:underline; text-underline-offset:.15em; }
 .profile-spotlight { background:var(--pale); }

@@ -166,6 +166,14 @@ footer p, .footer-group a { color:#d7e8ee; font-family:Arial,sans-serif; font-si
 .footer-bottom { align-items:center; border-top:1px solid rgba(255,255,255,.22); display:flex; flex-wrap:wrap; gap:1rem; grid-column:1 / -1; justify-content:space-between; padding-top:1rem; }
 .footer-bottom p { color:#d7e8ee; font-size:.76rem; }
 .footer-bottom a { color:#fff; font-size:.8rem; font-weight:700; }
+.footer-cookie-settings { background:none; border:0; color:#fff; cursor:pointer; font-size:.8rem; padding:0; text-decoration:underline; text-underline-offset:.2em; }
+.cookie-banner { align-items:center; background:#fff; border:1px solid var(--line); border-top:4px solid var(--gold); bottom:1rem; box-shadow:0 1rem 3rem rgba(0,34,52,.22); display:grid; gap:1.25rem; grid-template-columns:minmax(0,1fr) auto; left:50%; max-width:760px; padding:1.1rem 1.25rem; position:fixed; transform:translateX(-50%); width:calc(100% - 2rem); z-index:50; }
+.cookie-banner[hidden] { display:none; }
+.cookie-banner p { color:var(--ink); font-size:.88rem; }
+.cookie-banner .eyebrow { color:var(--blue); margin-bottom:.2rem; }
+.cookie-banner a { color:var(--blue); display:inline-block; font-size:.82rem; font-weight:700; margin-top:.35rem; text-decoration:underline; text-underline-offset:.15em; }
+.cookie-banner-actions { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:flex-end; }
+.cookie-banner-actions .button { cursor:pointer; font-size:.72rem; padding:.65rem .8rem; }
 .search-panel[hidden] { display:none; }
 .search-panel { inset:0; position:fixed; z-index:30; }
 .search-backdrop { background:rgba(0,34,52,.64); inset:0; position:absolute; }
@@ -267,6 +275,11 @@ footer p, .footer-group a { color:#d7e8ee; font-family:Arial,sans-serif; font-si
 }
 @media (max-width:420px) {
 	.footer-navigation { grid-template-columns:1fr; }
+}
+@media (max-width:760px) {
+	.cookie-banner { grid-template-columns:1fr; }
+	.cookie-banner-actions { justify-content:flex-start; }
+	.footer-cookie-settings { text-align:left; }
 }
 @media (max-width:760px) {
 	.hero.home-hero { height:55vh; max-height:560px; min-height:360px; }

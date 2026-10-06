@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ["Privacy policy", "other%20pages/privacy-policy"],
           ["Terms and conditions", "other%20pages/terms"],
           ["Accessibility", "other%20pages/accessibility"],
+          ["Cookie policy", "other%20pages/cookie-policy"],
         ],
       },
     ];
@@ -109,7 +110,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const backToTop = document.createElement("a");
     backToTop.href = new URL("#top", siteRoot).href;
     backToTop.textContent = "Back to top";
-    bottom.append(copyright, backToTop);
+    const cookieSettings = document.createElement("button");
+    cookieSettings.className = "footer-cookie-settings";
+    cookieSettings.type = "button";
+    cookieSettings.textContent = "Cookie settings";
+    bottom.append(copyright, cookieSettings, backToTop);
     content.append(brand, navigation, bottom);
     footer.classList.add("site-footer");
     footer.replaceChildren(content);
@@ -192,7 +197,79 @@ document.addEventListener("DOMContentLoaded", () => {
     logo.href = new URL("/", siteRoot).href;
   });
 
+  const consentKey = "acromind-cookie-consent";
+  const readConsent = () => {
+    try {
+      return localStorage.getItem(consentKey);
+    } catch (error) {
+      return null;
+    }
+  };
+  const writeConsent = (choice) => {
+    try {
+      localStorage.setItem(consentKey, choice);
+    } catch (error) {
+      // Keep the current-page choice even when browser storage is unavailable.
+    }
+  };
+  const clearOptionalEvents = () => {
+    try {
+      localStorage.removeItem("acromind-analytics");
+    } catch (error) {
+      // Ignore storage errors in restricted browsers.
+    }
+  };
+  const checkout = document.querySelector("[data-pesapal-checkout]");
+  const loadPesapal = () => {
+    if (!checkout || checkout.querySelector("iframe")) return;
+    const iframe = document.createElement("iframe");
+    iframe.width = "200";
+    iframe.height = "40";
+    iframe.src = checkout.dataset.src;
+    iframe.title = "Donate to Acromind Initiative with Pesapal";
+    iframe.loading = "lazy";
+    iframe.setAttribute("allowfullscreen", "");
+    checkout.append(iframe);
+  };
+  if (readConsent() !== "optional") clearOptionalEvents();
+
+  const cookieBanner = document.createElement("aside");
+  cookieBanner.className = "cookie-banner";
+  cookieBanner.setAttribute("aria-label", "Cookie and storage choices");
+  cookieBanner.setAttribute("aria-describedby", "cookie-banner-message");
+  cookieBanner.innerHTML = `<div><p class="eyebrow">Your privacy choices</p><p id="cookie-banner-message">If you allow optional storage, limited interaction records stay in this browser. The Pesapal checkout may use third-party cookies when loaded.</p><a href="${new URL("other%20pages/cookie-policy", siteRoot).href}">Read our Cookie Policy</a></div><div class="cookie-banner-actions"><button class="button" type="button" data-cookie-choice="essential">Essential only</button><button class="button gold" type="button" data-cookie-choice="optional">Allow optional</button></div>`;
+  document.body.append(cookieBanner);
+  const hideCookieBanner = () => { cookieBanner.hidden = true; };
+  const showCookieBanner = () => {
+    cookieBanner.hidden = false;
+    cookieBanner.querySelector("[data-cookie-choice='essential']").focus();
+  };
+  cookieBanner.querySelectorAll("[data-cookie-choice]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const choice = button.dataset.cookieChoice;
+      writeConsent(choice);
+      if (choice === "optional") {
+        loadPesapal();
+      } else {
+        clearOptionalEvents();
+        checkout?.querySelector("iframe")?.remove();
+      }
+      hideCookieBanner();
+    });
+  });
+  document.querySelector(".footer-cookie-settings")?.addEventListener("click", showCookieBanner);
+  checkout?.querySelector("[data-load-pesapal]")?.addEventListener("click", () => {
+    if (!readConsent()) writeConsent("essential");
+    hideCookieBanner();
+    loadPesapal();
+  });
+  if (readConsent()) {
+    hideCookieBanner();
+    if (readConsent() === "optional") loadPesapal();
+  }
+
   const trackEvent = (eventName, details = {}) => {
+    if (readConsent() !== "optional") return;
     try {
       const key = "acromind-analytics";
       const existing = JSON.parse(localStorage.getItem(key) || "[]");
@@ -247,6 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ["other%20pages/about-us", "About us"],
     ["other%20pages/accessibility", "Accessibility"],
     ["other%20pages/contact", "Contact"],
+    ["other%20pages/cookie-policy", "Cookie policy"],
     ["other%20pages/donate", "Donate"],
     ["other%20pages/events-news", "Events and news"],
     ["other%20pages/general-debate", "General debate"],

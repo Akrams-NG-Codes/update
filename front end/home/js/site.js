@@ -245,6 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ["gallery", "Gallery"],
     ["blog", "AcroMind pulse"],
     ["other%20pages/about-us", "About us"],
+    ["other%20pages/accessibility", "Accessibility"],
     ["other%20pages/contact", "Contact"],
     ["other%20pages/donate", "Donate"],
     ["other%20pages/events-news", "Events and news"],
@@ -254,6 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ["other%20pages/our-work", "Our work"],
     ["other%20pages/privacy-policy", "Privacy policy"],
     ["other%20pages/safeguarding-policy", "Safeguarding policy"],
+    ["other%20pages/terms", "Terms and conditions"],
   ];
   const textSelectors = "main h1, main h2, main h3, main p, main figcaption";
   const currentUrl = new URL(window.location.href);

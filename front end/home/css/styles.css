@@ -64,7 +64,7 @@ nav a.active:not(.button)::after { transform:scaleX(1); }
 .hero.about-hero .eyebrow { color:var(--blue); }
 .hero.about-hero p { color:var(--muted); }
 .events-hero { background-image:url("../../asset/optimized/IMG_6565.jpg"); }
-.donate-hero { background-image:url("../../asset/love.jpg"); }
+/* .donate-hero { background-image:url("../../asset/love.jpg"); } */
 .involved-hero { background-size:36% auto; }
 .work-hero { background-size:56% auto; }
 .pulse-hero .eyebrow, .debate-hero .eyebrow, .involved-hero .eyebrow, .work-hero .eyebrow, .about-hero .eyebrow, .events-hero .eyebrow, .donate-hero .eyebrow { color:var(--blue); }
@@ -255,7 +255,7 @@ footer p, .footer-group a { color:#d7e8ee; font-family:Arial,sans-serif; font-si
 .search-results a:hover { background:#dceef3; }
 .search-dialog { max-height:calc(100vh - 2rem); overflow-y:auto; }
 .donation-note { background:var(--pale); border-left:4px solid var(--gold); color:var(--ink); margin:0 0 2rem; padding:1rem 1.2rem; }
-.donation-note iframe { border:0; display:block; margin-top:1rem; max-width:100%; }
+/* .donation-note iframe { border:0; display:block; margin-top:1rem; max-width:100%; } */
 .gallery-contact { color:var(--muted); font-size:.9rem; margin-top:1.2rem; }
 .gallery-contact a { color:var(--blue); font-weight:700; text-decoration:underline; text-underline-offset:.15em; }
 .profile-spotlight { background:var(--pale); }

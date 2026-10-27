@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Ways to take part",
         links: [
           ["Get involved", "other%20pages/get-involved"],
-          ["Donate", "other%20pages/donate"],
+          // ["Donate", "other%20pages/donate"],
           ["General debate", "other%20pages/general-debate"],
           ["Contact us", "other%20pages/contact"],
           ["Frequently asked questions", "other%20pages/contact#faq"],
@@ -158,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
     searchItem.innerHTML = '<button class="search" type="button" aria-label="Search site" title="Search site" data-search-toggle><span class="search-icon" aria-hidden="true"></span></button>';
     list.append(searchItem);
 
+    /*
     const donateItem = document.createElement("li");
     const donateLink = document.createElement("a");
     donateLink.className = "button";
@@ -165,6 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
     donateLink.textContent = "Donate";
     donateItem.append(donateLink);
     list.append(donateItem);
+    */
     nav.replaceChildren(list);
 
     const navContainer = nav.parentElement;
@@ -219,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Ignore storage errors in restricted browsers.
     }
   };
+  /*
   const checkout = document.querySelector("[data-pesapal-checkout]");
   const loadPesapal = () => {
     if (!checkout || checkout.querySelector("iframe")) return;
@@ -231,13 +234,14 @@ document.addEventListener("DOMContentLoaded", () => {
     iframe.setAttribute("allowfullscreen", "");
     checkout.append(iframe);
   };
+  */
   if (readConsent() !== "optional") clearOptionalEvents();
 
   const cookieBanner = document.createElement("aside");
   cookieBanner.className = "cookie-banner";
   cookieBanner.setAttribute("aria-label", "Cookie and storage choices");
   cookieBanner.setAttribute("aria-describedby", "cookie-banner-message");
-  cookieBanner.innerHTML = `<div><p class="eyebrow">Your privacy choices</p><p id="cookie-banner-message">If you allow optional storage, limited interaction records stay in this browser. The Pesapal checkout may use third-party cookies when loaded.</p><a href="${new URL("other%20pages/cookie-policy", siteRoot).href}">Read our Cookie Policy</a></div><div class="cookie-banner-actions"><button class="button" type="button" data-cookie-choice="essential">Essential only</button><button class="button gold" type="button" data-cookie-choice="optional">Allow optional</button></div>`;
+  cookieBanner.innerHTML = `<div><p class="eyebrow">Your privacy choices</p><p id="cookie-banner-message">If you allow optional storage, limited interaction records stay in this browser.</p><a href="${new URL("other%20pages/cookie-policy", siteRoot).href}">Read our Cookie Policy</a></div><div class="cookie-banner-actions"><button class="button" type="button" data-cookie-choice="essential">Essential only</button><button class="button gold" type="button" data-cookie-choice="optional">Allow optional</button></div>`;
   document.body.append(cookieBanner);
   const hideCookieBanner = () => { cookieBanner.hidden = true; };
   const showCookieBanner = () => {
@@ -248,25 +252,14 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", () => {
       const choice = button.dataset.cookieChoice;
       writeConsent(choice);
-      if (choice === "optional") {
-        loadPesapal();
-      } else {
+      if (choice !== "optional") {
         clearOptionalEvents();
-        checkout?.querySelector("iframe")?.remove();
       }
       hideCookieBanner();
     });
   });
   document.querySelector(".footer-cookie-settings")?.addEventListener("click", showCookieBanner);
-  checkout?.querySelector("[data-load-pesapal]")?.addEventListener("click", () => {
-    if (!readConsent()) writeConsent("essential");
-    hideCookieBanner();
-    loadPesapal();
-  });
-  if (readConsent()) {
-    hideCookieBanner();
-    if (readConsent() === "optional") loadPesapal();
-  }
+  if (readConsent()) hideCookieBanner();
 
   const trackEvent = (eventName, details = {}) => {
     if (readConsent() !== "optional") return;
@@ -325,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ["other%20pages/accessibility", "Accessibility"],
     ["other%20pages/contact", "Contact"],
     ["other%20pages/cookie-policy", "Cookie policy"],
-    ["other%20pages/donate", "Donate"],
+    // ["other%20pages/donate", "Donate"],
     ["other%20pages/events-news", "Events and news"],
     ["other%20pages/general-debate", "General debate"],
     ["other%20pages/get-involved", "Get involved"],

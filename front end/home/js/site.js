@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Ways to take part",
         links: [
           ["Get involved", "other%20pages/get-involved"],
-          // ["Donate", "other%20pages/donate"],
+          ["Donate", "other%20pages/donate"],
           ["General debate", "other%20pages/general-debate"],
           ["Contact us", "other%20pages/contact"],
           ["Frequently asked questions", "other%20pages/contact#faq"],
@@ -158,7 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
     searchItem.innerHTML = '<button class="search" type="button" aria-label="Search site" title="Search site" data-search-toggle><span class="search-icon" aria-hidden="true"></span></button>';
     list.append(searchItem);
 
-    /*
     const donateItem = document.createElement("li");
     const donateLink = document.createElement("a");
     donateLink.className = "button";
@@ -166,7 +165,6 @@ document.addEventListener("DOMContentLoaded", () => {
     donateLink.textContent = "Donate";
     donateItem.append(donateLink);
     list.append(donateItem);
-    */
     nav.replaceChildren(list);
 
     const navContainer = nav.parentElement;
@@ -318,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ["other%20pages/accessibility", "Accessibility"],
     ["other%20pages/contact", "Contact"],
     ["other%20pages/cookie-policy", "Cookie policy"],
-    // ["other%20pages/donate", "Donate"],
+    ["other%20pages/donate", "Donate"],
     ["other%20pages/events-news", "Events and news"],
     ["other%20pages/general-debate", "General debate"],
     ["other%20pages/get-involved", "Get involved"],

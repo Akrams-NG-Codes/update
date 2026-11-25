@@ -11,6 +11,8 @@ Use `front end` as the publish directory. No dependency installation or build co
 - Vercel: import the repository. The root `vercel.json` sets the framework to Other, disables the build command, and publishes `front end`.
 - Any web server: copy the contents of `front end` to the public web root.
 
+The donation page links directly to the external secure payment provider at `https://kacyberpay.com/pay/4iffybnk3v`; no payment API is required for the static site.
+
 The root `index.html` serves the full homepage. The `404.html`, `robots.txt`, `sitemap.xml`, and `.nojekyll` files are included for static hosting and search discovery.
 
 ## Local preview

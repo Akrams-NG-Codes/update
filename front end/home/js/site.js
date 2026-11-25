@@ -219,20 +219,6 @@ document.addEventListener("DOMContentLoaded", () => {
       // Ignore storage errors in restricted browsers.
     }
   };
-  /*
-  const checkout = document.querySelector("[data-pesapal-checkout]");
-  const loadPesapal = () => {
-    if (!checkout || checkout.querySelector("iframe")) return;
-    const iframe = document.createElement("iframe");
-    iframe.width = "200";
-    iframe.height = "40";
-    iframe.src = checkout.dataset.src;
-    iframe.title = "Donate to Acromind Initiative with Pesapal";
-    iframe.loading = "lazy";
-    iframe.setAttribute("allowfullscreen", "");
-    checkout.append(iframe);
-  };
-  */
   if (readConsent() !== "optional") clearOptionalEvents();
 
   const cookieBanner = document.createElement("aside");
@@ -303,6 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = mailtoLink;
     });
   });
+
 
   const searchButton = document.querySelector("[data-search-toggle]");
   if (!searchButton) return;
